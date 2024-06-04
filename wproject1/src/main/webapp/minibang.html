@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>미니 방명록</title>
+<script type="text/javascript">
+window.onload = () => {
+	document.querySelector("#btnOk").onclick = function() {
+		if(frm.name.value === "" || frm.subject.value === "") {
+			alert("자료를 입력하세요.");
+			return false;
+		}
+		
+		frm.method="post"; // 글 내용은 많을 수 있으므로 post 방식을 사용
+		frm.action="ServletBang";
+		frm.submit();
+	}
+}
+</script>
+</head>
+<body>
+	<h2>* 방명록에 글쓰기 *</h2>
+	<form name="frm">
+		<table>
+			<tr>
+				<td>작성자</td>
+				<td><input type="text" name="name"></td>
+			</tr>
+			<tr>
+				<td>글 제목</td>
+				<td><input type="text" name="subject"></td>
+			</tr>
+			<tr>
+				<td>글 내용</td>
+				<td>
+					<textarea rows="5" cols="50" name="content"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					<input type="button" value="등 록" id="btnOk">
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

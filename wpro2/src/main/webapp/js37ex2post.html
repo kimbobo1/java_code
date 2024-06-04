@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = () => {
+		document.querySelector("#btnOk").onclick = start;
+	}
+	
+	let xhr;
+	
+	function start() {
+		let num = frm.num.value;
+		let name = frm.name.value;
+		
+		// 입력 자료 오류 검사
+		let regexp = /[0-9]/g;
+		let regexp2 = /[가-힣]/g;
+		if(!frm.num.value.match(regexp)){
+			frm.num.focus();
+			alert("사번은 숫자만 입력 가능합니다.");
+			return;
+		}
+		
+		if(!frm.name.value.match(regexp2)){
+			frm.name.focus();
+			alert("이름은 한글만 입력 가능합니다.");
+			return;
+		}
+
+		xhr = new XMLHttpRequest();
+		xhr.open('post', 'js37ex2.jsp', true);  
+		
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200) { 
+					process();
+				}
+			}
+		}
+		
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("num=" + num + "&name=" + name);
+	}
+	
+	function process() {
+		let data = xhr.responseText;
+
+		let parseData = JSON.parse(data);
+
+		let str = "<table>";
+		str += "<tr><th>고객명</th><th>고객전화</th><th>성별</th></tr>";
+		
+		for(let i = 0; i < parseData.gogek.length; i++) {
+			let color_name;
+			str += "<tr>";
+			if(parseData.gogek[i].gogek_gen === "남"){
+				color_name = "<td style='color:yellow'>" + parseData.gogek[i].gogek_name + "</td>"
+			} else {
+				color_name = "<td style='color:blue'>" + parseData.gogek[i].gogek_name + "</td>"
+			}
+			str += color_name; 
+			str += "<td>" + parseData.gogek[i].gogek_tel + "</td>";
+			str += "<td>" + parseData.gogek[i].gogek_gen + "</td>";
+			str += "</tr>";
+		}
+		str += "</table>";
+		document.getElementById("disp").innerHTML = str;
+	}
+</script>
+</head>
+<body>
+	<h4>직원정보 입력</h4>
+	<form name="frm">
+		사번 :
+  		<input type="text" id="num" name="num"><br>
+ 		이름 :
+ 		<input type="text" id="name" name="name">
+		<input type="button" id="btnOk" value="관리고객 출력"><br>
+	</form>
+	<hr>
+	<div id="disp"></div>
+</body>
+</html>

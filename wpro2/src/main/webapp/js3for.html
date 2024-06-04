@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>반복문 for</title>
+</head>
+<body>
+	<h2>반복문 for</h2>
+	<script type="text/javascript">
+		for(let a = 1; a <= 5; a++){
+			document.write(`a값은 ${a}<br>`);
+		}
+		
+		// document.write(`for문을 벗어난 a값은 ${a}<br>`); let 변수 a는 지역변수이므로 에러 발생
+		for(let a = 10; a >= 1; a -= 2){
+			document.write(`a값은 ${a}<br>`);
+		}
+		document.write('<br>');
+		
+		for(let a = 1; a <= 3; a++){
+			document.write(`a값은 ${a}&nbsp;&nbsp;`);
+			for(let b = 1; b <= 4; b++){
+				document.write(`b값은 ${b}&nbsp;&nbsp;`);
+			}
+			document.write('<br>');
+		}
+		document.write('<br>');
+		
+		for(let a = 1; a <= 10; a++){
+			if(a === 3) continue;
+			if(a === 6) break;
+			document.write(`a값은 ${a} `);
+		}
+	</script>
+	
+	<h1>문제</h1>
+	<script type="text/javascript">
+		// 문1) 1 ~ 100 사이의 정수 중 3의 배수의 합과 개수 출력
+		let cnt = 0, sum = 0;
+		for(let i = 1; i <= 100; i++){
+			if(i % 3 === 0){
+				sum += i;
+				cnt++;
+			}
+		}
+		document.write('<br> sum : ' + sum + ' cnt : ' + cnt);
+		
+		// 문2) 1 ~ 1000 사이의 정수 중 2의 배수이나 5의 배수가 아닌 수의 합 출력
+		// 조건 : 숫자가 100을 넘으면 작업 중지 break 사용 
+		let sum2 = 0;
+		for(let i = 1; i <= 1000; i++){
+			if(i > 100) break;
+			else if(i % 2 === 0 && i % 5 !== 0){
+				sum2 += i;
+			}
+			
+		}
+		document.write('<br>sum2 : ', sum2);
+		
+		
+		// 문3) 2 ~ 9단까지의 구구단 출력 (table tag를 사용. border='1')
+		// 조건 : 각 단은 행으로 구분
+		// 조건 2: 짝수 단의 배경은 노란색
+		document.write("<br><table border=1>");
+		for(let i = 2; i <= 9; i++){
+			document.write('<tr>')
+			if(i % 2 == 0){
+				document.write(`<td style="background-color: yellow">${i}단 </td>`);
+				for(let j = 1; j <= 9; j++){
+					document.write(`<td style="background-color: yellow">${i} * ${j} = ${(i*j)} `);
+				}
+				document.write("<br></td>");
+			} else {
+				document.write(`<td> ${i}단`);
+				for(let j = 1; j <= 9; j++){
+					document.write(`<td>${i} * ${j} = ${(i*j)} `);
+				}
+				document.write("<br></td>");
+			}
+			document.write('</tr>')
+		}
+		document.write('</table>')
+		
+	</script>
+</body>
+</html>

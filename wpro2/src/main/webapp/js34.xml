@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list>
+	<item>
+		<code price="5000">10</code>
+		<sang>아메리카노</sang>
+	</item>
+	<item>
+		<code price="6000">20</code>
+		<sang>콜드브루</sang>
+	</item>
+	<item>
+		<code price="7000">30</code>
+		<sang>카페라테</sang>
+	</item>
+</list>

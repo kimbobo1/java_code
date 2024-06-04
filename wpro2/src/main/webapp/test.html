@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AJAX</title>
+<script type="text/javascript">
+	window.onload = () => {
+		document.querySelector("#btnOk").onclick = function() {
+			start();
+		}		
+	}
+
+	let xhr;
+	function start() {
+		
+		xhr = new XMLHttpRequest();  // AJAX 지원 js 객체, 대소문자를 구분함.
+
+		xhr.open('get', 'js34.xml', true);  // 두 번째 인자의 데이터를 get 방식으로
+
+		xhr.onreadystatechange = function() {
+			process();
+		}
+
+		xhr.send(null);
+	}
+
+	function process() {
+		//let data = xhr.responseText;  // XML 형태의 일반 텍스트 문서 => DOM 처리 불가
+		let data = xhr.responseXML;     // responseXML : XML 객체 읽기 => DOM 처리 가능
+
+		let itemNode = data.getElementsByTagName("item");
+		let codeNode = data.getElementsByTagName("code");
+		let sangNode = data.getElementsByTagName("sang");
+		
+		let str = "";
+		for(let i = 0; i < itemNode.length; i++) {
+			str += codeNode[i].childNodes[0].nodeValue + " ";
+			str += sangNode[i].firstChild.nodeValue + " ";
+			str += codeNode[i].getAttribute("price");
+			str += "<br>";
+		}
+		
+		console.log(str);
+	}
+</script>
+</head>
+<body>
+	<h2>AJAX</h2>
+	<button id="btnOk">XML 파일</button><hr>
+</body>
+</html>

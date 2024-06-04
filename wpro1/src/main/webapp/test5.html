@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시판</title>
+</head>
+<body>
+<h2>게시판 글쓰기</h2>
+<form action="border.jsp" name="frm" method="get"> <!-- a 태그는 무조건 get 방식, form 타입은 선택 가능 --><!-- post 방식은 http 바디 영역에 담겨서 넘어감. get 방식은 길이에 제한이 있다(보안 상관 없이 데이터를 넘길 때 get 사용). post는 있는 그대로 다 넘어감 -->
+	<table border="1">
+		<tr>
+			<td>이름</td>
+			<td><input type="text" name="writer"></td>
+		</tr>
+		<tr>
+			<td>제목</td>
+			<td><input type="text" name="subject" placeholder="제목을 주세요"></td>
+		</tr>
+		<tr>
+			<td>나이</td>
+			<td><input type="number" name="age"></td>
+		</tr>
+		<tr>
+			<td>이메일</td>
+			<td><input type="email" name="email"></td>
+		</tr>
+		<tr>
+			<td>글내용</td>
+			<td><textArea rows="10" cols="50" name="content"></textArea></td> <!-- textArea는 줄바꿈이나 띄어쓰기로 공백을 주면 안됨 -->
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" value=" 전 송 "><!-- form 태그의 action에 있는 경로를 찾아감 -->
+				<input type="reset" value=" 취 소 ">
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

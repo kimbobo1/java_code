@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function showOper(num1, num2){
+		return `${num1 + num2}, ${num1 - num2}, ${num1 * num2}, ${num1 / num2}`;
+	}
+	
+	function sumArray(arr) {
+		let sum = 0;
+		
+		for(let i = 0; i <arr.length; i++){
+			sum += arr[i];
+		}
+		return sum;
+	}
+	
+	function factorial(num) {
+		let result = 1;
+		if(num === 0 || num === 1) return;
+		
+		for(let i = 1; i <= num; i++) {
+			result *= i;
+		}
+		return result;
+	}
+	
+	function countChar(str, s) {
+		let count = 0;
+		for(let i = 0; i < str.length; i++){
+			if(str.charAt(i) === s) count++;
+		}
+			
+		return count;
+	}
+	
+	function totShow(str) {
+		let sum = 0;
+		let str1 = str.split("");
+		
+		for(let i = 0; i < str1.length; i++){
+			if(!isNaN(str1[i])) sum += parseInt(str1[i]);
+		}
+		return sum;
+	}
+</script>
+</head>
+<body>
+	<script type="text/javascript">
+		document.write(showOper(8, 2));
+		
+		document.write('<br>', sumArray([1,2,3,4,5]));
+		document.write(' ', sumArray([10, 20, 30]));
+		
+		document.write('<br>', factorial(5));
+		document.write(' ', factorial(7));
+		
+		document.write('<br>', countChar("hello", "l"));
+		document.write(' ', countChar("javascript", "a"));
+		
+		myString = "1a2b3c4d123";
+		document.write('<br>', totShow(myString));
+	</script>
+</body>
+</html>

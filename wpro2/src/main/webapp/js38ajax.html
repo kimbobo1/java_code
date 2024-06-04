@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- axios CDN -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+	window.onload = () => {
+		document.querySelector("#btn1").onclick = funcJs;
+		document.querySelector("#btn2").onclick = funcFetch;
+		document.querySelector("#btn3").onclick = funcAsync;
+		document.querySelector("#btn4").onclick = funcAxios;
+		
+		document.querySelector("#btnApi1").onclick = funcBook1;
+		document.querySelector("#btnApi2").onclick = funcBook2;
+	}
+	
+	let xhr;
+	
+	
+	// 기본적인 방법
+	function funcJs() {
+		xhr = new XMLHttpRequest();
+		xhr.open('get', "js38.json", true);  
+		
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200) { 
+					processFunc();
+				} else {
+					alert("요청 실패 : " + xhr.status);
+				}
+			}
+		}
+		
+		xhr.send(null);
+	}
+	
+	function processFunc() {
+		let data = xhr.responseText;
+		let parseData = JSON.parse(data);  // 객체화
+		
+		let str = "";
+		for(let i = 0; i < parseData.sangpum.length; i++) {
+			str += parseData.sangpum[i].code + " " + parseData.sangpum[i].sang + "<br>";
+		}
+		document.querySelector('#show1').innerHTML = str;
+	}
+	
+	
+	
+	
+	
+	// fetch
+	function funcFetch() {
+		// fetch 함수는 HTTP response 객체를 래핑한 Promise 객체를 반환한다. 
+		// 따라서 프로미스의 후속 처리 메서드인 then을 사용하여 resolve한 객체를 전달받을 수 있다.
+		const url = "js38.json";
+		
+		// fetch(url. {method:전달방식}) 
+		fetch(url, {method:"GET"}).then(response => {   // get 방식의 경우 method 생략 가능
+			//alert(response.status);  // url의 파일에 따라 응답코드를 반환(200 : 정상)
+			if(response.status === 200) {
+				return response.json();
+			} else {
+				console.log(`http error status : ${response.status}`);
+			}
+		}).then(jsonData => {  // promise는 리턴하면 then이 받는다.
+			//alert(jsonData);  // JSON.parse
+			let str = "";
+			for(let i = 0; i < jsonData.sangpum.length; i++) {
+				str += jsonData.sangpum[i].code + " " + jsonData.sangpum[i].sang + "<br>";
+			}
+			document.querySelector('#show2').innerHTML = str;
+		}).catch(err => {
+			console.error(err);
+		});  
+	}
+	
+	
+	
+	// async
+	async function funcAsync() {
+		const url = "js38.json";
+		const response = await fetch(url);   
+		const jsonData = await response.json();
+		//alert(jsonData);  object
+		
+		let str = "";
+		for(let i = 0; i < jsonData.sangpum.length; i++) {
+			str += jsonData.sangpum[i].code + " " + jsonData.sangpum[i].sang + "<br>";
+		}
+		document.querySelector('#show3').innerHTML = str;
+	}
+	
+	
+	
+	// axios
+	function funcAxios() {
+		// 엑시오스 : Promise 기반의 HTTP 통신 라이브러리이며 상대적으로 다른 HTTP 통신 라이브러리들에 비해 문서화가 잘되어 있고 API가 다양하다.
+		const url = "js38.json";
+		axios.get(url).then((response) => {
+			console.log(response.data);
+			return response.data;  // return 값은 then이 받는다.
+		}).then((data) => {
+			let str = "";
+			for(let i = 0; i < data.sangpum.length; i++) {
+				str += data.sangpum[i].code + " " + data.sangpum[i].sang + "<br>";
+			}
+			document.querySelector('#show4').innerHTML = str;
+		}).catch((error) => {
+			console.error('오류 : ' + error);
+		});
+	}
+	
+	
+	
+	
+	function funcBook1() {
+		//alert("7");
+		const REST_API_KEY = "4dcc90b52aaa714840b4eea199414c12"; 
+		const bookName = document.querySelector("#bookSearch").value;  // 자바
+		const query = `?query=${bookName}`;
+		//alert(query);
+		
+		fetch(`https://dapi.kakao.com/v3/search/book${query}`, {
+			method:'get',
+			headers:{
+				Authorization : `KakaoAK ${REST_API_KEY}`,
+			},
+		}).then((response) => {
+			return response.json();
+		}).then((data) => {
+			//alert(data.documents[1].title); // 책 이름 출력
+			
+			let str = "";
+			for(let i = 0; i < data.documents.length; i++){
+				 str += data.documents[i].authors + ", " +
+				 	data.documents[i].title + ", " +
+				 	data.documents[i].price + ", " +
+				 	data.documents[i].publisher + "<br>";
+			}
+			
+			document.querySelector("#showBook1").innerHTML = str;
+		}).catch(err => {
+			console.error(err);
+		});
+		
+	}
+	
+	function funcBook2() {
+		const REST_API_KEY = "4dcc90b52aaa714840b4eea199414c12"; 
+		const bookName = document.querySelector("#bookSearch").value;  // 자바
+		
+		const options = {
+			headers:{
+				Authorization : `KakaoAK ${REST_API_KEY}`,
+			},
+			params:{
+				query:bookName,
+			},
+		}
+		
+		axios.get(`https://dapi.kakao.com/v3/search/book`, options)
+		.then((response) => {
+			return response.data;
+		}).then((data) => {
+			//alert(data.documents[1].title); // 책 이름 출력
+			
+			let str = "";
+			for(let i = 0; i < data.documents.length; i++){
+				 str += data.documents[i].authors + ", " +
+				 	data.documents[i].title + ", " +
+				 	data.documents[i].price + ", " +
+				 	data.documents[i].publisher + "<br>";
+			}
+			
+			document.querySelector("#showBook2").innerHTML = str;
+		});
+	}
+	
+</script>
+</head>
+<body>
+	<h2>JS에서 AJAX 처리 방법</h2>
+	<button id="btn1">기본 방법</button><br>
+	<button id="btn2">fetch 방법</button><br>
+	<button id="btn3">async 방법</button><br>
+	<button id="btn4">axios 방법</button><br>  <!-- 외부 라이브러리 -> 리액트에서 많이 사용 -->
+	<br>
+	
+	카카오 도서검색 api 사용하기<br>
+	<input type="text" id="bookSearch" value="자바"><br>
+	<button id="btnApi1">도서 검색(fetch)</button>
+	<button id="btnApi2">도서 검색(axios)</button>
+	<!--  
+	<hr>
+	방법 1 : 기본 방법<br>
+	<div id="show1"></div>
+	방법 2 : fetch 방법<br>
+	<div id="show2"></div>
+	방법 3 : async 방법<br>
+	<div id="show3"></div>
+	방법 4 : axios 방법<br>
+	<div id="show4"></div>
+	<hr>-->
+	<div id="showBook1"></div><br>
+	<div id="showBook2"></div>
+</body>
+</html>

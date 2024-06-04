@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = () => {
+		document.querySelector("#btnOk").onclick = start;
+	}
+	
+	let xhr;
+	
+	function start() {
+		//alert();
+		xhr = new XMLHttpRequest();
+		xhr.open('get', 'js36db_json.jsp', true);  
+		// 동기(false)인 경우, textarea에 글을 쓰다가.. 버튼을 클릭하고 값을 돌려받기 전까지는 작성 불가. 값을 받은 이후에 다시 값을 입력할 수 있음
+		// 비동기(true)인 경우, textarea에 글을 쓰다가.. 버튼을 클릭하고 텍스트를 입력할 수 있음.
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200) { 
+					process();
+				}	
+			}
+		}
+		
+		xhr.send(null);
+	}
+	
+	function process() {
+		let data = xhr.responseText;
+		//alert(data);
+		let parseData = JSON.parse(data);
+		//alert(parseData.sangpum.length);
+		
+		let str = "<table border='1'>";
+		str += "<tr><th>코드</th><th>상품명</th><th>수량</th><th>단가</th></tr>";
+		
+		for(let i = 0; i < parseData.sangpum.length; i++) {
+			str += "<tr>";
+			str += "<td>" + parseData.sangpum[i].code + "</td>";  // 이 code는 키값과 동일, value 값이 아니.ㅁ
+			str += "<td>" + parseData.sangpum[i].sang + "</td>";
+			str += "<td>" + parseData.sangpum[i].su + "</td>";
+			str += "<td>" + parseData.sangpum[i].dan + "</td>";
+			str += "</tr>";
+		}
+		str += "</table>";
+		document.getElementById("disp").innerHTML = str;
+		
+	}
+</script>
+</head>
+<body>
+	<h2>mariaDB 자료 JSON로 읽기</h2>
+	<textarea rows="10" cols="80"></textarea><br><br>
+	<button id="btnOk">JSON로 읽기</button>
+	<hr>
+	<div id="disp"></div>
+</body>
+</html>

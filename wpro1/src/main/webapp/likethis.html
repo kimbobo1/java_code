@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이거 좋아</title>
+<style type="text/css">
+/* 왼쪽 div 태그 style */
+#left { float: left; width: 30%; }
+
+.list { list-style: none; margin-bottom: 20px; }
+
+a { text-decoration: none; color: black; }
+
+/* 오른쪽 div 태그 style */
+#right { float: right; width: 70%; }
+
+/* 이미지 가운데 배치 */
+#center { 
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 75px;
+	height: 75px;
+}
+</style>
+</head>
+<body>
+	<div id="left">
+		<ul>
+			<li class="list" style="margin-top: 75px;">메뉴</li>
+			<li class="list"><a href="test5.html" target="likethisf">여기 갈래</a></li>
+			<li class="list"><a href="https://www.daum.net" target="likethisf">이거 좋아</a></li>
+			<li class="list"><a href="https://cafe.daum.net/flowlife" target="likethisf">홈페이지</a></li>
+		</ul>
+	</div>
+	<div id="right">
+		<header>
+			<a href="home.html"><img src="images/nuri.png" id="center"></a>
+		</header>
+		<div id="iframe">
+			<iframe src="https://www.daum.net/" name="likethisf" width="99%" height="250px"></iframe>
+		</div>
+		<footer>
+			(주) 에이콘 아카데미 관리 : 홍길동<br> 회사 소개. 비즈니스.운영정책
+		</footer>
+	</div>
+
+</body>
+</html>

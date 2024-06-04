@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = () => {
+		document.querySelector("#btnGet").onclick=getFunc;
+		document.querySelector("#btnPost").onclick=postFunc;
+	}
+	
+	let xhr;
+	function getFunc() {
+		//alert('get');
+		let irum = frm.name.value;
+		let nai = frm.age.value;
+		//alert(name + " " + age);
+		
+		fName = "getpost.jsp?name=" + irum + "&age=" + nai; 
+		
+		xhr = new XMLHttpRequest();
+		xhr.open('get', fName, true); // 비동기 방식
+		
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200) { 
+					getProcess();
+				} else {
+					alert("요청 실패 : " + xhr.status);
+				}
+			}
+		}
+		
+		xhr.send(null);  // get 방식의 경우, 인수가 빈 상태임.
+	}
+	
+	function getProcess() {
+		let data = xhr.responseText;
+		let ss = "get 요청 결과 : " + data;
+		document.querySelector("#show").innerText = ss;
+		
+	}
+	
+	function postFunc() {
+		//alert('post');
+		let irum = frm.name.value;
+		let nai = frm.age.value;
+		
+		xhr = new XMLHttpRequest();
+		xhr.open('post', "getpost.jsp", true); // post 방식의 경우 두 번쨰 인자에 파일만 입력
+		
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200) { 
+					postProcess();
+				} else {
+					alert("요청 실패 : " + xhr.status);
+				}
+			}
+		}
+		
+		
+		
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");  // 브라우저에 알려주어야 함.
+		xhr.send("name=" + irum + "&age=" + nai);  // post 방식은 body를 타고 넘어감.
+	}
+	
+	function postProcess() {
+		let data = xhr.responseText;
+		let ss = "post 요청 결과 : " + data;
+		document.querySelector("#show").innerText = ss;
+		
+	}
+</script>
+</head>
+<body>
+	<h2>AJAX get, post 요청</h2>
+	<form name="frm">
+		이름 : <input type="text" name="name" value="tom"><br>
+		나이 : <input type="text" name="age" value="23"><br><br>
+		<input type="button" value="get" id="btnGet">
+		<input type="button" value="post" id="btnPost">
+		
+		<hr>
+		<div id="show"></div>
+	</form>
+</body>
+</html>

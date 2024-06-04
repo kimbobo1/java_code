@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GetData</title>
+<script type="text/javascript">
+	window.onload = () => {
+		document.querySelector("#btnOk").onclick = function() {
+			frm.submit();
+		}
+	}
+</script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>
+				<img src="images/sangpum2.jpg">
+			</td>
+			<td>
+				<pre>
+					독일 RONGEO 가정용 사무실 냉난방기 냉온풍기 원룸
+					4.6
+					330개 상품평
+					57% 420,000원 
+					269,100원
+					쿠팡판매가
+					268,100원
+					쿠폰할인가
+				</pre>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<form action="Cart" name="frm" method="post">
+					<input type="hidden" name="name" value="다이슨"> 
+					<input type="hidden" name="price" value="420000"> 
+					<input type="button" id="btnOk" value="장바구니에 상품 담기">
+					<input type="button" value="홈으로 이동" onclick="history.back()">
+				</form>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

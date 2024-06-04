@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = () => {
+		document.querySelector("#all").onclick = start;
+		document.querySelector("#men").onclick = start;
+		document.querySelector("#women").onclick = start;
+	}
+	
+	let xhr;
+
+	function start() {
+		let check_value;
+		document.getElementsByName("option").forEach((radio) => {
+			if(radio.checked) {
+				check_value = radio.defaultValue;
+			}
+		});
+		
+		fName = "js37ex1.jsp?gen=" + check_value; 
+
+		xhr = new XMLHttpRequest();
+		xhr.open('get', fName, true);  
+		
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState === 4) {
+				if(xhr.status === 200) { 
+					process();
+				}	
+			}
+		}
+		
+		xhr.send(null);
+	}
+	
+	function process() {
+		let data = xhr.responseText;
+		//alert(data);
+		let parseData = JSON.parse(data);
+		//alert(parseData.jikwon.length);
+		
+		let str = "<table>";
+		str += "<tr><th>사번</th><th>이름</th><th>직급</th><th>입사년</th></tr>";
+		
+		for(let i = 0; i < parseData.jikwon.length; i++) {
+			str += "<tr>";
+			str += "<td>" + parseData.jikwon[i].no + "</td>";  
+			str += "<td>" + parseData.jikwon[i].name + "</td>";
+			str += "<td>" + parseData.jikwon[i].jik + "</td>";
+			str += "<td>" + parseData.jikwon[i].ibsail + "</td>";
+			str += "</tr>";
+		}
+		str += "</table>";
+		document.getElementById("disp").innerHTML = str;
+		document.getElementById("count").innerHTML = "인원수 : " + parseData.jikwon.length;
+	}
+</script>
+</head>
+<body>
+ 	<h4>직원 정보</h4>
+ 	<form name="frm">
+  		<input type="radio" id="all" name="option" value="전체" checked>
+ 		<label for="all">전체</label>
+ 		<input type="radio" id="men" name="option" value="남">
+  		<label for="men">남자</label>
+  		<input type="radio" id="women" name="option" value="여">
+  		<label for="women">여자</label>
+	</form>
+	
+ 	<hr>
+ 	<div id="disp"></div>
+ 	<div id="count"></div>
+</body>
+</html>

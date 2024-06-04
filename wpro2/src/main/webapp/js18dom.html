@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DOM</title>
+<script type="text/javascript">
+	function abc() {
+		let my = document.getElementById("my");
+		console.log(my.nodeName + ", " +   // nodeName : 요소 이름 H2
+				my.childNodes[0] + ", " +  // my.childNodes[0].nodeValue : h2의 child는 "dom 객체의 참조"라는 값.
+				my.lastChild.nodeValue); // my의 첫 번쨰 자식의 값을 의미 => DOM 객체 참조
+		console.log(my.getAttribute("id"));  // my
+		console.log(my.getAttribute("comments"));   // 이건 속성
+	}
+	
+	function def() {
+		let arr = document.getElementsByTagName("input");
+		console.log("arr의 크기 : " + arr.length);  // 2 => input 태그의 개수가 2개이므로
+		console.log(arr[0].getAttribute("value"));  // id 검색
+		console.log(arr[1].getAttribute("value"));  // element 검색
+	}
+	
+	function func(para) {
+		let ele = document.createElement("i");  // i 태그 생성
+		let itext = document.createTextNode(para); // <i>안녕</i> 다시말해 para 값을 생성하여 i태그의 자식으로 넣을 것.
+		ele.appendChild(itext); // i 태그 자식으로 itext 값이 들어감.  => 결과값 : <i>안녕</i>
+		
+		document.getElementById("show").appendChild(ele);  // 위에서 만든 결과값 div 태그에 출력
+	}
+	
+	function cleFunc() {
+		let target = document.getElementById("show");
+		//target.removeChild(target.lastChild);  // 마지막으로 추가된 요소 삭제
+		//target.removeChild(target.firstChild); // 첫 요소부터 삭제
+		
+		// 모든 요소 삭제
+		while(target.hasChildNodes()){ 
+			target.removeChild(target.childNodes[0]);
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>DOM Test</h1>
+	<!-- 
+	구조화된 문서(XML. HTML, tree 구조)에 접근하여 요소 및 속성 또는 텍스트를
+	참조, 수정, 삭제, 추가할 수 있는 기술
+	 -->
+	<h2 id="my" comments="이건 속성">DOM 객체 참조</h2>  <!-- id는 예약 -->
+	<input type="button" value="id 검색" onclick="abc()"><br>
+	<input type="button" value="element 검색" onclick="def()"><hr>
+	
+	<h1>요소 생성 및 삭제</h1>
+	<button onclick="func('안녕')">요소 생성1</button>
+	<button onclick="func('반가워')">요소 생성2</button>
+	<button onclick="cleFunc()">요소 삭제</button><br>
+	<div id="show"></div>
+</body>
+</html>

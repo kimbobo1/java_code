@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>간단 계산기</title>
+<style>
+table {
+	border-collapse: collapse;
+}
+
+td {
+	padding: 5px 10px;
+	text-align: center;
+}
+
+input {
+	text-align: right;
+	border: none;
+}
+
+input:focus {
+	outline: none;
+}
+</style>
+<script type="text/javascript">
+function clearDisplay() {
+    document.getElementById('display').value = '';
+    document.getElementById('result').value = '';
+}
+
+function addNum(number) {
+    document.getElementById('display').value += number;
+}
+
+function addOper(operator) {
+    const display = document.getElementById('display');
+    const lastChar = display.value[display.value.length - 1];
+    if (['+', '-', '*', '/'].includes(lastChar)) {
+        display.value = display.value.slice(0, -1) + operator;
+    } else {
+        display.value += operator;
+    }
+}
+
+function calculateResult() {
+    const display = document.getElementById('display').value;
+    if (display.includes('/0')) {
+        alert("0으로 나눌 수 없습니다");
+        clearDisplay();
+    } else {
+        try {
+            const result = eval(display);
+            if (result < 0) {
+                alert("음수는 허용되지 않습니다");
+                clearDisplay();
+            } else {
+                document.getElementById('result').value = result;
+            }
+        } catch (e) {
+            document.getElementById('result').value = 'Error';
+        }
+    }
+}
+
+window.onload = function() {
+    const calculatorHTML = `
+    <table border="1">
+        <tr>
+            <td colspan="4"><input type="text" id="display" placeholder="display" readonly></td>
+        </tr>
+        <tr>
+            <td colspan="4"><input type="text" id="result" placeholder="result" readonly></td>
+        </tr>
+        <tr>
+            <td colspan="3" onclick="clearDisplay()">AC</td>
+            <td onclick="addOper('/')">/</td>
+        </tr>
+        <tr>
+            <td onclick="addNum('7')">7</td>
+            <td onclick="addNum('8')">8</td>
+            <td onclick="addNum('9')">9</td>
+            <td onclick="addOper('*')">*</td>
+        </tr>
+        <tr>
+            <td onclick="addNum('4')">4</td>
+            <td onclick="addNum('5')">5</td>
+            <td onclick="addNum('6')">6</td>
+            <td onclick="addOper('-')">-</td>
+        </tr>
+        <tr>
+            <td onclick="addNum('1')">1</td>
+            <td onclick="addNum('2')">2</td>
+            <td onclick="addNum('3')">3</td>
+            <td onclick="addOper('+')">+</td>
+        </tr>
+        <tr>
+            <td colspan="2" onclick="addNum('0')">0</td>
+            <td onclick="addNum('.')">.</td>
+            <td onclick="calculateResult()">=</td>
+        </tr>
+    </table>`;
+    document.getElementById('calculator').innerHTML = calculatorHTML;
+};
+</script>
+</head>
+<body>
+	 <div id="calculator"></div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AJAX</title>
+<script type="text/javascript">
+	window.onload = () => {
+		document.querySelector("#btnOk").onclick = function() {
+			start();
+		}
+		document.querySelector("#btnOk2").onclick = start;
+		document.querySelector("#btnOk3").onclick = start;
+		document.querySelector("#btnOk4").onclick = start;
+	}
+	
+	let xhr;
+	// ajax origin
+	function start() {
+		//alert('a');
+		xhr = new XMLHttpRequest();  // AJAX 지원 js 객체, 대소문자를 구분함.
+		// XMLHttpRequest() : 웹 브라우저가 서버와 데이터를 교환하기위해(상호작용하기 위해) 사용
+		
+		// cors를 따름 : Same-Origin Policy(SOP)는 웹 보안의 기본적인 원칙 중 하나
+		// open(요청방식(get/post), 요청파일명, 동기(false)/비동기(true))
+//		xhr.open('get', 'js34text.txt', true);  // txt 파일 읽기
+		xhr.open('get', 'js34csv.txt', true);   // csv 파일 읽기
+//		xhr.open('get', 'js34.xml', true);      // xml 파일 읽기
+//		xhr.open('get', 'js34.json', true);      // json 파일 읽기 => csv, json 의 확장자는 txt라도 상관없음
+		
+		// onreadystatechange : 접속상태를 확인
+		xhr.onreadystatechange = function() {
+			//alert(xhr.readyState);  => readyState : 통신 상태를 확인한다.
+			
+			// XMLHttpRequest 이떄 readyState는 0을 가짐.
+			if(xhr.readyState === 4){
+				//alert(xhr.status); => status : 응답코드 반환 404 => 파일이 없는 경우, 해당 파일이 있는 경우 200  
+				// 404(경로명, 파일명 틀림),403(전송방식이 틀림),500(파일에 이상이 있는 경우),200(정상)
+				if(xhr.status===200){  // 요청한 파일에 문제가 없는 경우
+					// 비동기 상태의 요청
+					process();
+				}		
+			}
+		}
+		
+		// send
+		xhr.send(null);
+	}
+	
+	function process() {
+		// txt 파일인 경우
+
+		let data = xhr.responseText;  // 서버가 넘겨준 파일을 받는다, XML 형식 이외의 문서인 경우 responseText 사용
+		console.log(data);  // 위 파일을 콘솔에 출력
+
+		
+		
+		// CSV 파일인 경우 
+		// 행은 enter로 구분, 열은 콤마(,)로 구분
+
+		let csvData = xhr.responseText;
+		let rowData = csvData.split(String.fromCharCode(13));  // split => 아스키 코드 13 : enter
+		//alert(rowData.length); 
+		let str = "";
+		for(let i = 0; i < rowData.length; i++) {
+			let colData = rowData[i].split(',');
+			for(let j = 0; j < colData.length; j++) {
+				str += colData[j] + " ";
+			}
+			str += "<br>";
+		}
+
+		
+		
+		// XML 파일인 경우
+/*
+		//let data = xhr.responseText;  // XML 형태의 일반 텍스트 문서 => DOM 처리 불가
+		let data = xhr.responseXML;     // responseXML : XML 객체 읽기 => DOM 처리 가능
+		//alert(data);
+		let itemNode = data.getElementsByTagName("item");
+		//alert(itemNode.length);  // item의 수가 3개이므로 3이 출력
+		let codeNode = data.getElementsByTagName("code");
+		let sangNode = data.getElementsByTagName("sang");
+		
+		let str = "";
+		for(let i = 0; i < itemNode.length; i++) {
+			str += codeNode[i].childNodes[0].nodeValue + " ";
+			str += sangNode[i].firstChild.nodeValue + " ";
+			str += codeNode[i].getAttribute("price");
+			str += "<br>";
+		}
+*/
+		
+		
+/*		
+		// JSON 파일인 경우
+		let data = xhr.responseText;  // JSON이므로 responseText 사용
+		//alert(data);
+		let parseData = JSON.parse(data);  // 문자열을 JSON 객체화 => 배열 처리가 가능해짐
+		//alert(parseData); // object Object 출력 => json 객체
+		//alert(parseData.sangpum.length);  // 배열 크기 확인
+		let str = "";
+		for(let i = 0; i < parseData.sangpum.length; i++) {
+			str += parseData.sangpum[i].code + " " + parseData.sangpum[i].sang + "<br>" // parseData.sangpum[i].code 는 key 값
+		}
+*/		
+//		document.querySelector("#disp").innerHTML = data; // text 파일인 경우
+		document.querySelector("#disp").innerHTML = str;  // CSV 파일인 경우
+//		document.querySelector("#disp").innerHTML = str;  // XML 파일인 경우
+//		document.querySelector("#disp").innerHTML = str;  // JSON 파일인 경우
+
+	}
+</script>
+</head>
+<body>
+	<h2>AJAX test</h2>
+	<button id="btnOk">TXT 읽기</button><hr>
+	<button id="btnOk2">CSV 읽기</button><br>
+	<button id="btnOk3">XML 읽기</button><br>
+	<button id="btnOk4">JSON 읽기</button><hr>
+	<div id="disp"></div>
+</body>
+</html>

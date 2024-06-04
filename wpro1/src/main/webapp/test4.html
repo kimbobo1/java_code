@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="author" content="홍길동"><!-- 크롤링 시 도움이 될 수 있음 -->
+<meta name="subject/title" content="연습용 홈피">
+<meta name="date" content="2024-05-13">
+
+<!-- 검색 로봇에 의해 검색을 당할 자료를 적음 -->
+<meta name="keyword" content="html 정보 설명">
+<meta name="description" content="홈페이지 작성 정보">
+
+<!--  <meta http-equiv="refresh" content="3; url='test1.html'">--><!-- 3초 있다가 test1.html로 refresh되도록 함 -->
+<title>form 태그</title>
+</head>
+<body>
+form tag : 사용자와 정보를 소통할 수 있는(상호작용이 가능) 태그
+<hr>
+<h2>개인 정보 입력 창</h2>
+<form action="#" name="frm" method="get">
+	1. 이름 : <input type="text" id="ir" name="irum" size="10" maxlength="10" value="tom"><br><!-- value : 초기치, maxlength : 최대 길이, id : 자바스크립트와 css에서 주로 사용, 입력값은 irum이라는 변수(name="")에 담겨서 이동 -->
+	2. 아이디 : <input type="text" name="id"><br>
+	3. 비밀번호 : <input type="password" name="pwd" value="123"><br>
+	4. 사진 업로드 : <input type="file" name="fname"><br>
+	5. 자기 소개 : <textarea rows="5" cols="60" name="my"></textarea><br>
+	6. 성별 : 
+	<input type="radio" name="gender" value="m">남자&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="gender" value="f" checked="checked">여자<br>
+	7. 스포츠 :
+	<input type="checkbox" name="sports" value="축구">축구&nbsp;&nbsp;&nbsp;
+	<input type="checkbox" name="sports" value="야구">야구&nbsp;&nbsp;&nbsp;
+	<input type="checkbox" name="sports" value="농구">농구&nbsp;&nbsp;&nbsp;<br>
+	8. 교통 수단 :
+	<select name="tr"> <!-- size="1" multiple="multiple" --> <!-- select는 하나만 선택할 수 있지만, multiple을 주면 여러 개 선택이 가능하다. -->
+		<option value="도보">도보</option>
+		<option value="버스">버스</option>
+		<option value="전철">전철</option>
+	</select>
+	<br>
+	9. 숨김
+	<input type="hidden" name="hello" value="hi">
+	<br><br>
+	<input type="submit" value="전송">
+</form>
+</body>
+</html>

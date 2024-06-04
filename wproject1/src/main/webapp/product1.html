@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GetData</title>
+<script type="text/javascript">
+	window.onload = () => {
+		document.querySelector("#btnOk").onclick = function() {
+			frm.submit();
+		}
+	}
+</script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>
+				<img src="images/sangpum1.png" width="160px" >
+			</td>
+			<td>
+				<pre>
+					일본 무제한 데이터 포켓와이파이 와이파이도시락 4GLTE 해외로밍전화 무료
+					6월 2일(일)부터 사용가능
+					2,900원쿠팡판매가
+					2,610원와우할인가
+					일 2GB 인천공항 T1 1층F 기준
+				</pre>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<form action="Cart" name="frm" method="post">
+					<input type="hidden" name="name" value="포켓와이파이">
+					<input type="hidden" name="price" value="2900">
+					<input type="button" id="btnOk" value="장바구니에 상품 담기">
+					<input type="button" value="홈으로 이동" onclick="history.back()">
+				</form>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

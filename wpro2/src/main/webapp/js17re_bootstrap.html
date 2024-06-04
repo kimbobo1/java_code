@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>정규표현식과 부트스트랩</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	window.onload = () => {
+		document.querySelector("#btnSend").onclick = chkData;  // 자바스크립트가 들어가 있는 버튼
+		document.querySelector("#btnClear").onclick = clsData;
+	}
+	
+	function chkData(e) {
+		e.preventDefault();  // submit 기능을 해제, 일반 버튼의 경우에는 필요 x
+		//alert('a');
+		
+		// 입력자료 오류검사 후, 서버로 자료 전송
+		if(frm.name.value === '' || isNaN(frm.name.value) === false){ 
+			frm.name.focus(); 
+			alert("이름을 입력하세요");
+			return;
+		}
+		
+		if(frm.id.value.length < 3){
+			frm.id.focus();
+			alert('아이디는 3자 이상 입력하세요');
+			return;
+		}
+		
+		// 정규 표현식 - 여러 용도 중 입력 자료 검사용
+		let str = "123Abc가나다45홍asdf123길동";
+		console.log(str.match(/[1]/));  // 일치하는 값 찾기 : match() -> 반환값은 배열. 최초의 1개만 반환
+		console.log(str.match(/[1]/g)); // g : global -> 해당되는 모든 값을 반환.
+		console.log(str.match(/[0-9]/g)); // 0~9인 숫자값들을 반환
+		console.log(str.match(/\d/g));  // 위와 동일. 
+		console.log(str.match(/[0-9 ]/g)); // 공백이 추가되는 경우, 숫자와 공백을 반환
+		console.log(str.match(/[가나]/g)); // '가','나'만 반환
+		console.log(str.match(/[가-힣]/g)); // 한글만 한글자 단위로 반환.
+		console.log(str.match(/[a-zA-Z]/g)); // 영어만 반환
+		console.log(str.match(/[a-zA-Z]/gi)); // i : 대소문자 구분 x. 모든 영문자 반환
+		console.log(str.match(/[가-힣]+/g)); // 한글(새로운 문자가 나오기 전까지) -> 문자열 형태로 반환
+		console.log(str.match(/\d{2}/g));  // 숫자 연속 두 글자만 끊어서 출력
+		console.log(str.match(/\d{2,3}/g)); // 숫자 연속 2자 또는 3자만 끊어서 출력
+		// --------------------------------------------------------------------------
+		
+		// 이메일 검사  => /i : 영문 대소문자 구분 무시
+		let regexp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		// /^[0-9a-zA-Z] : 첫글자가 숫자 또는 영문자.
+		// * : 0개 이상
+		// [a-zA-Z]{2,3}$ : [a-zA-Z]{2,3} => 문자가 2,3자로 끝나야 함.
+		if(!frm.email.value.match(regexp)){
+			frm.email.focus();
+			alert("이메일을 정확히 입력하세요");
+			return;
+		}
+		
+		// 나이 검사
+		let regexp2 = /^[0-9]{1,2}$/ // 첫글자는 숫자만 되고 1,2자로 끝나야 함.
+		if(!frm.age.value.match(regexp2)){
+			frm.age.focus();
+			alert("나이는 숫자만 입력하세요");
+			return;
+		}
+		
+		frm.action = "js17form.jsp";
+		frm.method = "post";
+		frm.submit();  // 여기서 jsp로 전달이 됨.
+	}
+	
+	function clsData() { // reset + 추가 기능
+		//alert('b');
+		//frm.name.focus();  // frm.name으로 커서가 이동.
+		document.querySelector("#name").focus();  // frm.name.focus() 결과와 동일.
+	}
+</script>
+</head>
+<body>
+	<b>개인 자료 입력</b>
+	<br>
+	<!-- 
+	<form action="js17form.jsp" name="frm" method="post">
+	 -->
+	<form name="frm">
+		<table class="table table-dark table-hover">
+			<!-- class="table" 을 통해 만들어진 css을 적용. -->
+			<tr>
+				<td>이 름</td>
+				<td><input type="text" name="name" id="name" value="홍길동"></td>
+			</tr>
+			<tr>
+				<td>아이디</td>
+				<td><input type="text" name="id" placeholder="3자 이상"></td>
+			</tr>
+			<tr>
+				<td>이메일</td>
+				<td><input type="text" name="email"></td>
+			</tr>
+			<tr>
+				<td>나 이</td>
+				<td><input type="text" name="age" maxlength="2"></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: center;"><input
+					type="submit" id="btnSend" value="자료 전송 " class="btn btn-dark">
+					<input type="reset" id="btnClear" value="자료 삭제"
+					class="btn btn-link"></td>
+			</tr>
+		</table>
+
+	</form>
+	
+	<button type="button" class="btn">Basic</button>
+	<button type="button" class="btn btn-primary">Primary</button>
+	<button type="button" class="btn btn-secondary">Secondary</button>
+	<button type="button" class="btn btn-success">Success</button>
+	<button type="button" class="btn btn-info">Info</button>
+	<button type="button" class="btn btn-warning">Warning</button>
+	<button type="button" class="btn btn-danger">Danger</button>
+	<button type="button" class="btn btn-dark">Dark</button>
+	<button type="button" class="btn btn-light">Light</button>
+	<button type="button" class="btn btn-link">Link</button>
+	
+	<br><br>
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#myModal">Open modal</button>
+
+	<!-- The Modal -->
+	<div class="modal" id="myModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Modal Heading</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">Modal body..</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

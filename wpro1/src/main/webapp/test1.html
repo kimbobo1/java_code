@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>나의 홈</title>
+</head>
+<body>
+환영합니다. 진심으로<br/>
+Tag : 문서의 구조와 형태를 표현하는 명령어로 <> 안에 적는다.<br>
+Tag 출력 형태에 따른 구분 두 가지 그룹<br>
+1) Block 방식 : 페이지 나누기가 실행 : p, h, div ...<br>
+2) Inline 방식 : 같은 행에 연속 출력 : b, i, span .. <br>
+<!-- html 주석 -->
+<p>문단 나누기</p>
+<h2>표제용</h2>
+<div>블럭(영역) 확보용</div>
+기타 여러 태그가 있다.
+<hr>
+<b>볼드체</b>
+<i>이탤릭체</i>
+<strong>여러가지()</strong>
+<span>태그들의</span>
+기능을 확인한다.
+<br>
+영역확보 태그 <br><b>div 태그와 span 태그 영역 비교 </b><br><br>
+<span style="background: rgb(0, 128, 255)">구역 확보</span>
+<span style="background: rgb(255, 128, 128)"> 일부 영역만 확보</span>
+<br>
+<div style="background: gold">행 전체 영역을 확보</div>
+<hr size="10" color="#0034ff" width="100">
+<div style="background: red"><b style="background: yellow">태그 안에 태그 작성</b><i style="background: cyan">태그 안에 태그 작성2</i></div>
+2<sup>3<br></sup>H<sub>2</sub>O <!-- 2의 3승 물 -->
+<br>
+<pre>
+입       력
+ 력     출
+  한   로
+   형 대
+    식
+</pre>
+특수 기호 사용 : 특수 &nbsp;&nbsp;&nbsp; 기호 &nbsp;&nbsp; 사용 &quot; &lt; &gt; &amp;<!-- &nbsp; 이걸 사용해서 공백 표현 -->
+<br>
+목록 만들기
+<ul> <!-- 번호 매기지 않음 -->
+	<li>첫 번째 요소</li> <!-- li 태그는 독립적으로 사용할 수 없음 -->
+	<li>두 번째 요소</li>
+</ul>
+
+<ol> <!-- 번호를 매김 -->
+	<li>첫 번째 요소</li>
+	<li>두 번째 요소</li>
+</ol>
+
+<menu> 
+	<li>김밥</li>
+	<li>주먹밥</li>
+</menu>
+
+<ul>
+	<li>종속 태그</li>
+	<li>하드웨어
+		<ol>
+			<li>컴퓨터</li>
+			<li>마우스</li>
+		</ol>
+	</li>
+	
+</ul>
+
+</body>
+</html>

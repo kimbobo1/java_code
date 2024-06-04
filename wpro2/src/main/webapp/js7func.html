@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사용자 정의 함수</title>
+	<script type="text/javascript">
+		// 함수를 선언한 후, body에서 필요할 때 호출하는 것이 일반적
+		function bb() {
+			document.write(`bb 함수 실행 성공`);
+			cc(5);  // 함수가 다른 함수를 호출. 반환값 무시
+			//return; // 함수 무조건 탈출, 아래 문장은 무시
+			
+			let result = cc(5);  // 반환값 얻기
+			document.write(`<br>bb() 메소드 실행 -> 인수 5일 때, result : ${result}`);
+			
+			document.write(`<br>bb() 메소드 실행 -> 인수 10일 때, result : ${cc(10)}`);
+			
+			// ---------------------------dd() 함수 호출---------------------------------
+			dd(7, 8);
+			dd(7, 8 ,9); // dd 메소드의 경우, 인수를 매개변수의 수보다 많이 주면 남는 인수는 무시된다. -> 세 번째 인수 부시
+			dd(7); // 7, undefined -> 두 번째 인자는 undefined 처리(err X)
+		}
+		
+		function cc(para) { // 매개변수가 있는 함수
+			let kk = para + 10;
+			document.write(`<br>cc() 메소드 실행 -> : kk는 ${kk}`);
+			
+			return kk;  // 반환값은 하나만 가능.
+		}
+		
+		function dd(para1, para2) { // 매개변수가 2개인 함수
+			document.write(`<br>dd() 메소드 실행 -> ${para1}, ${para2}`);
+		}
+		
+		// JS는 일급객체를 지원한다.
+		function f1() {
+			document.write(`<br>f1 수행`);
+		}
+		function f2(func) {  // 매개변수로 함수 사용
+			document.write(`<br>f2 수행`);
+			func(); // 매개변수로 받은 함수를 실행함.
+		}
+		
+		function f3() {  // 함수가 함수를 반환
+			document.write(`<br>f3() 호출`);
+			//return f1();  // 함수의 실행 결과를 반환
+			return f1;    // 함수가 함수를 반환(정확히는 주소를 반환)
+		}
+		
+		function hello() {
+			document.write(`<br>hello() 호출`);
+			f2(f1); // 인수로 함수 사용. f2()로 f1() 함수 전달
+			//f2(f1()); //-> 이런 경우, f1() 함수의 실행결과를 가져가므로 실행 X, js7func.html:41 Uncaught TypeError: func is not a function
+		
+			let myfunc = f3();  // 반환된 f1() 함수를 myfunc에 치환, myfunc가 f1()과 동일하다.
+			myfunc();  // f1()이 수행됨
+			f3()();  // 반환된 f1 함수를 실행
+		}
+		// 일급객체는 인수, 반환값, 매개변수로 사용할 수 있다? 
+				
+		// 전역, 지역 변수
+		let a = 100;   // 전역변수
+		const b = 200; // 전역변수
+		
+		function func1() {
+			let c = 30; // 지역변수
+			const d = 400;
+			
+			document.write(`<br>전역변수(func1() 내부) -> a:${a} b:${b}`);
+			document.write(`<br>지역변수(func1() 내부) -> c:${c} d:${d}`);
+			
+			a = 500;
+			{
+				let num1 = 123;
+				{
+					let num2 = 456;
+					document.write(`<br>num1:${num1} num2:${num2}`);  // 문제 없음
+				}
+				//document.write(`<br>num1:${num1} num2:${num2}`);  // bb는 지역변수이므로 접근 불가, js7func.html:79 Uncaught ReferenceError: num2 is not defined
+			}
+		}
+		
+	</script>
+</head>
+<body>
+	<h2>사용자 정의 함수</h2>
+<!-- 
+	함수 작성 방법 1 일반적
+	function 함수이름([매개변수1, 매개변수2,...]) {
+    	함수가 호출되었을 때 실행하고자 하는 실행문;
+   		[return 반환값;]
+   	}
+   	
+   	함수 작성 방법 2 : 함수 리터럴(함수 표현식)
+   	let 변수 = function() { ... }
+   	
+   	함수 작성 방법 3 : 함수 생성자 사용
+   	let 변수 = new Function() { ... }
+   	
+   	함수의 역할
+   	1) 호출 가능한 루틴으로서의 함수(일반적)
+   	+ 루틴 : 특정한 작업을 실행하기 위한 일련의 명령. 프로그램의 일부 또는 전체를 의미
+   	2) 값으로서의 함수(인자로 전달, 변수에 의한 할당 가능, 어떤 함수의 반환값으로 사용 ← 일급객체)
+   	3) 객체 타입으로의 함수
+-->
+	<script type="text/javascript">
+		let count = 0;
+		function aa() {
+			count++;
+			document.write(count + "번 수행<br>");
+		}
+		
+		aa(); // 함수 호출
+		document.write("뭔가를 하다가...<br>");
+		aa(); 
+		document.write(`함수는 참조형 타입 : ${typeof aa}`);  // 함수 타입은 function(Object에 해당)
+	</script>
+	
+	<div>날씨 좋은데~~</div>
+	
+	<script type="text/javascript">
+		aa();
+	</script>
+	
+	<div><b>HTML의 head 태그 부분에 작성된 함수 호출</b></div>
+	
+	<script type="text/javascript">
+		bb();
+		
+		document.write(`<hr>일급객체 경험하기`);
+		hello();
+		
+		document.write(`<hr>전역, 지역 변수!`);
+		func1();
+		document.write(`<br><br>전역변수(func1() 외부) -> a:${a} b:${b}`);
+		//document.write(`<br><br>전역변수(func1() 외부) -> c:${c} d:${d}`);  
+		//Uncaught ReferenceError: c is not defined, c는 지역변수이므로 func1() 함수 외부에서는 접근이 불가. d도 마찬가지
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>closer(클로저)</title>
+</head>
+<body>
+	클로저(closure)<br>
+	클로저는 내부 함수에서 외부 함수의 범위에 대한 접근을 제공한다.<br> 
+	JavaScript에서 클로저는 함수 생성 시 함수가 생성될 때마다 생성된다.<br>
+	클로저는 어떤 함수와 해당 함수가 선언된 렉시컬 환경의 조합이다.<br>
+	'상위함수' 보다 '하위함수'가 더 오래 살아있는 경우를 말한다.<br><br>
+	[참조] https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures
+	<hr>
+	<script type="text/javascript">
+		function func() {
+			let name = 'tom';  // name과 no는 지역변수, 멤버 필드 x
+			let no = 1;  
+			
+			// displayName()은 내부함수, 메소드 x
+			function displayName() {
+				console.log(name + no);
+				no++;  // 함수 호출될 때마다 no가 초기화됨.
+			}
+			displayName();
+		}
+		
+		func(); func(); func();
+		
+		// 클로저 사용
+		function closure() {
+			let name = 'james';  // name과 no는 지역변수, 멤버 필드 x
+			let no = 1;  
+			
+			// displayName()은 내부함수, 메소드 x
+			function displayName() {
+				console.log(name + no);
+				no++;  // 함수 호출될 때마다 no가 초기화됨.
+			}
+			return displayName;  // 이게 클로저 : 실행결과를 반환하는 것이 아닌 내부 함수의 주소를 반환해야한다.
+		}
+		
+		let myClosure = closure();  // displayName의 주소를 가지고 있음.
+		myClosure(); myClosure(); myClosure();
+		
+		
+		function makeAdd(x) {
+			return function(y) {  // 함수를 리턴, 함수의 실행 결과를 리턴 x
+				return x + y;
+			}
+		}
+		
+		let tot = makeAdd(5);  // x = 5
+		console.log(tot(3));   // y = 3
+		console.log(tot(5));   // y = 5
+		
+		let tot2 = makeAdd(10);  // x = 10
+		console.log(tot(3));   // y = 13
+		console.log(tot(5));   // y = 15
+		console.log(makeAdd(10)(2));  // 12 출력
+	</script>
+</body>
+</html>

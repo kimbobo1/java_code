@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 처리</title>
+<script type="text/javascript">
+	//window.onload = function() { }
+	window.onload = () => {
+		document.getElementById("colorW").onclick=function(){
+			document.bgColor = "white";
+		}
+		document.getElementById("colorG").onclick= () => {
+			document.bgColor = "#00FF00"; // green
+		}
+		/*
+		document.getElementById("colorR").onclick= () => {
+			document.bgColor = "rgb(255,0,0)"; // rgb(100%, 0%, 0%)와 동일
+		}
+		*/
+		
+		// querySelector(css 셀렉터)
+		document.querySelector("#colorR").onclick = () => { // id 이므로 #을 사용함
+			document.bgColor = "rgb(255,0,0)";
+		}
+		
+		document.querySelector(".hello").onclick = function() { // class 이므로 .을 사용함
+			document.querySelector("#show").innerText = "안녕하세요";
+		}
+		
+		document.querySelector("#calc").ondblclick = function() { //  id 이므로 #을 사용함
+			let ss = `연산결과는 ${10 + 20}`;
+			document.querySelector("#show").innerText = ss;
+		}
+		
+		// hover 기능
+		document.querySelector("#name").onmouseover = function() { //  id 이므로 #을 사용함
+			document.querySelector("#show").innerHTML = "<h1>난 홍길동</h1>";
+		}
+		document.querySelector("#name").onmouseout = function() { //  id 이므로 #을 사용함
+			document.querySelector("#show").innerHTML = "";
+		}
+		
+		// a 태그 : click 이벤트가 기본 등록됨
+		document.querySelector("#daum").onclick = function(event) {  // 변수명은 상관없음(event가 아니어도 됨)
+			event.preventDefault(); // 해당 태그의 고유 기능 해제 -> a 태그의 기능을 해제
+			console.log(event);  // 이벤트 정보 확인
+ 			console.log(`x좌표 : ${event.x}, y좌표 : ${event.y}`);
+		}
+		
+		// select 
+		const sdata = document.querySelector("#sel");
+		//   이 경우는 select 창 클릭 시 출력이 한 번 더 발생.
+		/*sdata.onclick = function() {
+			document.querySelector("#show").innerHTML = sdata.value;
+			console.log(sdata.value);
+		}*/
+
+		sdata.onchange = function() {
+			document.querySelector("#show").innerHTML = sdata.value;
+			console.log(sdata.value);
+		}
+		
+	};
+</script>
+</head>
+<body>
+	여러 이벤트 경험
+	<br>
+	<input type="button" value="흰색" id="colorW">
+	<!-- 
+	<input type="button" value="녹색" id="colorG">
+	<input type="button" value="적색" id="colorR">
+	-->
+	<span id="colorG"> 녹색 </span>
+	<b id="colorR" style="border: 1px solid black; cursor: pointer;"> 적색 </b>
+	
+	<hr>
+	이벤트 종류 연습<br>
+	<button id="hello" class="hello">인사하기(click)</button>
+	<button id="calc">인사하기(dblclick)</button>
+	<button id="name">이름알기(mouseover)</button>
+	
+	<br>
+	<a href="https://m.daum.net" id="daum">앵커 태그 클릭</a>  <!-- a태그는 클릭 이벤트가 먹힘. -->
+	<br>	
+	<select id="sel">
+		<option value="프로그래머">프로그래머</option>
+		<option value="웹퍼블리셔">웹퍼블리셔</option>
+		<option value="프로게이머">프로게이머</option>
+	</select>
+	
+	<hr>
+	<div id="show">출력장소1</div>
+</body>
+</html>

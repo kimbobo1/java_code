@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>달력</title>
+<script type="text/javascript">
+	window.onload = () => {
+		// 버블링과 캡처링 참조
+		document.querySelector("#btnShow").addEventListener("click", func); // 클릭 이벤트를 사용하면 func 함수 실행, 세 번쨰 옵션은 버블링과 캡처링 옵션
+		
+	};
+	
+	function func() {
+		let now = new Date();  // Date 객체 생성
+		let year = now.getFullYear();
+		let month = now.getMonth();  // 달은 0부터 시작
+		let day = now.getDate();
+
+		console.log(`${year} ${month + 1} ${day}`);
+		
+		// 현재 월의 1일은 무슨 요일?
+		let setDate = new Date(year, month, 1);
+		let firstDay = setDate.getDate();
+		console.log(firstDay); // 1
+		
+		// 해당 날짜의 요일
+		let yoil = setDate.getDay();  // 요일을 반환(0(일) ~ 6(토))
+		console.log(yoil);
+		
+		// 현재 월의 일수?
+		const nalsu = new Array(31,28,31,30,31,30,31,31,30,31,30,31);
+		//nalsu[1] = 29;  // const임에도 에러가 발생하지 않음. array값으로 덮어쓰기는 안되지만(참조 대상은 변경 불가!) 객체 안의 멤버는 변경 가능
+		
+		// 2월 일수 윤년 체크
+		if(year % 4 === 0 && year % 100 !== 0 || year % 400 === 0){
+			nalsu[1] = 29;
+		}
+		
+		let str = makeCalendar(yoil, nalsu[month], year, month + 1, day);
+		document.querySelector("#disp").innerHTML = str;
+		
+		document.querySelector("#etc").style.display = "";  // 숨어있던 버튼 등장
+		
+	}
+	
+	function makeCalendar(yoil, nalsu, year, month, day){
+		let str = `<table border='1'>`;
+		
+		// 2024년 5월 출력
+		str += `<tr><th colspan='7'>${year}년 ${month}월</th></tr>`;
+		
+		// 요일명 출력
+		str += `<tr>`;
+		let week = new Array("일","월","화","수","목","금","토");
+		for(let i = 0; i < week.length; i++){
+			str += `<th style='padding-left: 5px; padding-right: 5px;'>${week[i]}</th>`;
+		}
+		str += `</tr>`;
+		
+		// 일수 채우기
+		let no = 1;
+		let currentCell = 0;  // 
+		
+		// 이번 달은 몇 주?
+		let ju = Math.ceil((nalsu + yoil) / 7);
+		console.log(`이번 달은 ${ju} 주`);
+		for(let r = 0; r < ju; r++) {  // 행의 개수 : ju
+			str += `<tr style='text-align: center;'>`;
+			
+			for(let col = 0; col < 7; col++) { // 열의 개수 : 7
+				if(currentCell < yoil || no > nalsu) {  // 첫 주의 1일이 수요일이면 이전은 공백처리, 일수까지만 출력
+					str += `<td>&nbsp;</td>`;
+					currentCell++;
+				} else {
+					if(no === day) { // 오늘은 글자색을 파랑으로 표시
+						str += `<td style='color:blue;'>${no}</td>`;
+					} else {
+						str += `<td>${no}</td>`;
+					}
+					no++;
+				}
+			}
+			
+			str += `</tr>`;
+		}
+		
+		str += `</table>`;
+		return str;
+	}
+</script>
+</head>
+<body>
+	<button id="btnShow">달력보기</button>
+	<br><br>
+	<div id="disp"></div><br>
+	<div id="etc" style="display:none;">
+		<button id="btnPyear">지난 해</button>
+		<button id="btnPmonth">지난 달</button>
+		<button id="btnNmonth">다음 달</button>
+		<button id="btnNyear">다음 해</button>
+	</div>
+</body>
+</html>

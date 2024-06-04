@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>inheritance(상속)</title>
+<script type="text/javascript">
+	class Animal {
+		move = "움직임";
+		
+		constructor(name) {
+			document.write(`<br>Animal 생성자`);
+			this.name = name;
+			this.speed = 0;
+		}
+		
+		run(speed) {
+			this.speed = speed;
+			document.write(`<br>${this.name} : ${this.speed}`);
+			document.write(`<br>${this.move}`);
+		}
+		
+		stop() {
+			this.speed = 0;
+			document.write(`<br>${this.name} : stop`);
+		}
+		
+		disp() {
+			document.write(`<br>동물임을 선언하노라`);
+		}
+	}
+	
+	class Rabbit extends Animal {
+		leg = 2;
+		//move = "움직임2";
+		
+		constructor(name, leg) {
+			document.write(`<br>Rabbit 생성자`);
+			//super();  // 기본적으로 생략되어 있음. 생략 가능
+			super(name);  // 부모 생성자를 호출 => **자바의 경우, super()가 가장 맨 위에 있어야 함.
+			this.leg = leg;
+		}
+		
+		stop() {   // method overriding
+			super.stop(); // 생성자 오버로딩이 없으므로 this()는 존재할 수 없음.
+			document.write(`<br>Rabbit의 stop 메소드`);
+			this.disp();
+			this.hide();
+		}
+		
+		disp() {   // method overriding
+			document.write(`<br>토끼 만세`);
+			document.write(`<br>this.move : ${this.move}`);  // 현재 클래스에서 찾다가 없으면 부모 클래스에서 찾는다.
+			document.write(`<br>super.move : ${super.move}`);  // 바로 super로 찾아가지 못함. undefined
+			// 메소드 내에서 super.멤버필드 X, this.멤버필드 O
+			// 메소드 내에서 super.메소드는 가능
+		}
+		
+		hide() {  // Rabbit의 고유 메소드
+			document.write(`<br>Rabbit의 고유 메소드 ${this.name} 숨어버리다~`);
+		}
+	}
+	
+	
+	//class Dog extends Animal, Rabbit {} : 다중 상속 불가.
+	class Dog extends Animal {
+		constructor(name) { 
+			super(name);
+		}
+		
+		disp() { // method overriding
+			document.write(`<br>댕댕이 화이팅 : 열심히 ${this.move}`);
+		}
+	}
+	
+	function func() {
+		const ani = new Animal("동물 수퍼 클래스");
+		ani.disp();
+		ani.run(5);
+		ani.stop();
+		
+		document.write(`<hr>상속을 알아보자<br>`);
+		const rabbit = new Rabbit("토끼", 4);
+		rabbit.disp();
+		rabbit.run();  // 부모 클래스로 올라가서 run() 메소드 호출
+		document.write("<br>------");
+		rabbit.stop();
+		rabbit.hide();  // Rabbit의 고유 메소드
+		
+		document.write("<br>~~~~~~~~~~~~");
+		const dog = new Dog("우리 댕+댕이");
+		dog.disp();
+		dog.run(5);
+		dog.stop();
+		
+		document.write(`<br>^^^^^^^ 다형성 ^^^^^^^`);
+		let poly = rabbit;  // 자바와 다르게 일반변수를 사용.
+		poly.disp();
+		document.write(`<br>`);
+		
+		poly = dog;
+		poly.disp();
+		
+	}
+	
+</script>
+</head>
+<body onload="func()">
+	<h1>클래스의 상속</h1>
+	객체들 간의 관계를 구축하는 방법이다.
+	부모(super) 클래스 등의 기존 클래스로부터 속성(멤버 필드)과 동작(멤버 메소드)을 상속을 통해 자식 클래스를 만들 수 있다.
+	
+</body>
+</html>

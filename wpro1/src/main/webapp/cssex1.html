@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSS 기초</title>
+<!-- 스타일 적용 -->
+<style type="text/css">
+/* internal 방식*/
+h1 {
+	font-size: 50px;
+	font-family: 궁서;
+	color: #00FA9A;
+}
+
+.c1 {
+	color: orange;
+	font-family: 돋움, 궁서, serif, "Times New Roman";
+}
+
+#i1 {
+	color: blue;
+	font-style: italic;
+}
+</style>
+<!-- external 방식 -->
+<link rel="stylesheet" type="text/css" href="mycss/ex1.css">
+</head>
+<body>
+	<h2>CSS 적용하기</h2>
+	<span style="font-size: 30px; color: aqua;">인라인(Inline) 방식</span>
+
+	<h1>내부(Internal) 방식</h1>
+	<h2>안녕하세요</h2>
+	<h1>반가워요</h1>
+
+	<p class="c1">p 클래스 사용 1</p>
+	<h2 class="c1">h2 클래스 사용 2</h2>
+	<p id="i1">p 아이디 사용(중복 불가)</p>
+
+	<!-- external 방식 -->
+	<div id="i2">div 태그 : 별도 css 파일 작성 후 적용</div>
+
+	<p>* 입력 양식 *</p>
+	<form action="#">
+		<table>
+			<tr>
+				<td>id : </td>
+				<td><input type="text" name="id" id="id" class="id"></td>
+				<!-- name 속성은 자바스크립트, 주로 server 전송을 위해 사용 -->
+				<!-- id, class 속성은 css와 자바스크립트를 위해 사용 -->
+			</tr>
+			<tr>
+				<td>pwd : </td>
+				<td><input type="password" name="pwd" id="pwd" class="id"></td>
+				<!-- name 속성은 자바스크립트, server 전송을 위해 사용 -->
+				<!-- id, class 속성은 css를 위해 사용 -->
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="button" id="btnOk" class="btnOk" value="전송">
+				</td>
+			</tr>
+		</table>
+	</form>
+	<br>
+	<a href="https://www.naver.com">네이버</a><br>
+	<a href="https://www.daum.net">다음</a>
+	<br>
+	<i>i 태그</i>
+	<strong><span>span tag</span></strong>
+	
+	<hr>
+	<b> 셀렉터 : 부모, 자식, 자손 관계 </b>
+	<b>b 태그</b>
+	<div><b>div 속 b 태그</b></div>
+	<div><span><b>div 속 span 속 b 태그</b></span></div>
+	<div><b id="hi">div 속 b 태그 : id가 hi인 경우</b></div>
+	<div><b class="hello">div 속 b 태그 : class가 hello인 경우</b></div>
+	<hr>
+	
+	<div id="pic">배경 이미지</div>
+	<br>
+	<img title="title" src="images/snow.png" width="150">
+	
+</body>
+</html>

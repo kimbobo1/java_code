@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>테이블 태그 연습</title>
+</head>
+<body>
+table 태그 연습<br>
+<table border="1">
+	<thead>
+		<tr>
+			<th>제목1</th><th>제목2</th><th>제목3</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>입력내용1</td><td>내용2</td><td>내용3</td><!-- 열의 너비는 긴 데이터의 길이에 맞춘다. -->
+		</tr>
+		<tr>
+			<td>내용4</td><td>내용5</td><td>&nbsp;</td> <!-- 테이블의 빈 공간은 &nbsp;로 채워주는 것이 좋다. -->
+		</tr>
+	</tbody>
+</table>
+<br>
+
+<table border="2" bgcolor="yellow" style="background-image: url('images/snow.png')"><!-- 자식이 우선순위, table은 전체에 영향, !속성은 전파됨-->
+<!-- style="background-image: url('images/snow.png')" 이거는 배경으로 이미지가 깔림  -->
+	<caption>상품자료</caption>
+	<tr bgcolor="red">
+		<td bgcolor="sliver"><b>상 품 명</b></td>
+		<td>수량</td>
+		<td>단가</td>
+	</tr>
+	<tr>
+		<td>컴퓨터</td>
+		<td align="center">2</td>
+		<td>
+			<img src="images/pic.jpg" width="100"> <!-- height를 주지 않아도 width에 맞춰 조정된다. -->
+		</td>
+	</tr>
+	<tr>
+		<td>a</td>
+		<td>
+			<table border="3">
+				<tr>
+					<td>
+						<a href="https://www.daum.net">daum</a>
+					</td> <!-- 데이터는 td 태그 안에만 넣어야 함. -->
+					<td>나</td>
+				</tr>
+			</table>
+		</td>
+		<td>c</td>
+	</tr>
+</table>
+<br> <!-- 행 병합 rowspan, 열 병합 colspan -->
+<table border="1" width="200">
+	<tr>
+		<td colspan="2">a</td><!-- 열 병합 colspan 2개의 열이 병합됨. -->
+		<td>b</td>
+		<td rowspan="2">c</td><!-- 행 병합 rowspan, 2개의 행이 병합됨. -->
+	</tr>
+	<tr>
+		<td>d</td>
+		<td>e</td>
+		<td>f</td>
+	</tr>
+</table>
+<br>
+<table border="1" width="200">
+	<tr>
+		<td rowspan="2">1</td>
+		<td colspan="2">2</td>
+		<td rowspan="2">3</td>
+	</tr>
+	<tr>
+		<td colspan="2">4</td>
+	</tr>
+	<tr>
+		<td>5</td>
+		<td>6</td>
+		<td>7</td>
+		<td rowspan="2">8</td>
+	</tr>
+	<tr>
+		<td>9</td>
+		<td colspan="2">10</td>
+	</tr>
+</table>
+<br><br>
+
+한 화면에서 여러 개의 html 문서를 보고자 하는 경우, 아래와 같이 iframe을 사용하면 된다.
+<iframe src="test1.html" name="star" width="99%" height="300"></iframe> 
+<br>
+<a href="test2.html" target="star">iframe에서 frame2 보기</a>
+<p/>
+이미지 맵 : 이미지를 여러 영역으로 지정해 각 영역마다 link를 걸 수 있다.
+<br>
+<img src="images/snow.png" width="150" usemap="#snow"/>
+<map name="snow"><!-- map의 name은 이미지의 이름이다 -->
+	<area shape="rect" coords="0,0,50,50" href="https://www.naver.com"><!-- rect : 사각형 -->
+	<area shape="rect" coords="50,100,100,200" href="https://www.w3.org">
+</map>
+<pre>
+.
+.
+.
+</pre>
+
+
+</body>
+</html>

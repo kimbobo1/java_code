@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>innerHTML, innerText</title>
+<script type="text/javascript">
+	function func1() {
+		// 자바스크립트에 의해 클라이언트에서 벌어짐.
+		let str1 = document.getElementById("test1").innerHTML; // <div id="test1"> 해당 id값을 get
+		console.log(str1);
+		document.getElementById("show1").innerHTML = str1; // id값을 set(document에 출력)
+		document.getElementById("show2").innerHTML = "<i>" + str1 + "</i>";  // i 태그가 추가되어 출력
+		
+		let mytag = "이름 : <input type='text' name='irum' />";
+		mytag += "<br>";
+		mytag += "나이 : <input type='text' name='nai' value='23' />";
+		document.getElementById("test1").innerHTML = mytag; // test1이 이거로 변경됨.  // 서버와는 상관이 없다. 클라이언트에서만 수정됨.
+				
+	}
+	
+	function func2() {
+		let str2 = document.getElementById("test2").innerText;
+		document.getElementById("show1").innerText = str2; 
+		document.getElementById("show2").innerText = "<i>" + str2 + "</i>"; // i 태그는 문자열 처리.
+	}
+</script>
+</head>
+<body>
+	<h2>실행 중 tag 또는 생성, 삭제, 수정, 참조 처리 가능</h2>
+	<!-- 
+	element.innerText : element 안의 text 값들만을 수정, 참조. tag도 text 처리
+	
+	element.innerHTML : element 안의 text에 HTML이나 XML이 있으면 기능을 발휘.
+	DOM 기능을 일부 수행
+	Document Object Model의 약자로, HTML요소를 JavaScript Object처럼 조작할 수 있는 Model이다.
+	 -->
+	<hr>
+	<div id="test1"><h2>innerHTML 연습</h2></div>
+	<div id="test2"><h2>안녕하세요</h2></div>
+	<input type="button" value="처리 1" onclick="func1()">
+	<input type="button" value="처리 2" onclick="func2()"><br>
+	<div id="show1"></div>
+	<div id="show2"></div>
+</body>
+</html>

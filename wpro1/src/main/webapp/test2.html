@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이미지와 링크</title>
+</head>
+<body>
+
+img 태그 : 이미지 출력<br>
+<img src="images/space.jpg" width="300" height="200">
+<br>
+<img src="https://t1.daumcdn.net/daumtop_deco/images/pctop/2023/logo_daum.png"> <!-- 이미지 주소를 src에 넣음. -->
+<br>
+<embed src="image/tetris.swf" autostart="true"></embed> <!--  -->
+<hr>
+
+a 태그 : 하이퍼 링크 가능 <br>
+<a href="test1.html">test1 문서(default)</a>보기<br>
+<!-- 이동할 경로위에 커서를 올리면 어디로 이동하는지 URL이 보인다. 현재 프레임을 덮어쓴다. -->
+<a href="http://localhost:80/wpro1/test1.html" target="_self">test1 문서(_self)</a>보기<br> <!-- target의 _self : 현재 프레임을 덮어씀-->
+<a href="test1.html" target="_new">test1 문서(_new)</a>보기<br><!-- target의 _new : 새로운 탭으로 이동-->
+<a href="test1.html" target="_blank">test1 문서(_blank)</a>보기<br> <!-- target의 _blank : 새로운 탭으로 이동-->
+
+<a href="https://www.naver.com">네이버(default)</a><br>
+<a href="https://www.naver.com" target="_new">네이버(_new)</a><br>
+
+<a href="https://www.daum.net">
+	<img title="연습" src="https://t1.daumcdn.net/daumtop_deco/images/pctop/2023/logo_daum.png" width="50" height="50">
+</a><br>
+
+<a href="files/book1.xlsx">엑셀문서</a><br><!-- 브라우저가 해석할 수 없으면(파싱할 수 없으면) 다운로드함(유저가 확인해야함)  -->
+<a href="files/code.txt">텍스트문서</a><br>
+<a href="files/hello.txt">텍스트문서</a><br><!-- 경로명, 파일명이 틀리면 응답코드 404 File Not Found, 해당 파일이 존재하지 않음 -->
+
+<a href="mailto:minhyeong6508@naver.com">나에게 메일 전송</a> <!-- mailto: -->
+<hr>
+
+<a href="META-INF/aaa.html">META-INF 폴더 내 파일</a><br> <!-- 실패 -->
+<a href="WEB-INF/bbb.html">WEB-INF 폴더 내 파일</a><br><!-- 실패 -->
+<!-- META-INF, WEB-INF은 외부에서 호출할 수 없음. -->
+<!-- 위 두 개의 디렉토리는 call 할 수 없음. 보안이 설정되어 있음. 중요한 파일들을 여기에 넣는다. -->
+
+<a href="kbs/a.html">kbs 폴더 내 파일</a><br><!-- 성공(wpro1/kbs/a.html) -->
+<a href="/wpro1/kbs/a.html">kbs 폴더 내 파일</a><br><!-- 성공(위와 동일) -->
+<a href="/kbs/a.html">/kbs 폴더 내 파일</a><br><!-- 404 에러(localhost/kbs/a.html), 경로가 다름 -->
+<!-- / : 현재 컨텍스트의 root를 의미 -->
+<br>
+<a href="kbs/sbs/b.html">sbs 폴더 내 파일</a><br>
+<a href="kbs/sbs/tvn/c.html">tvn 폴더 내 파일</a><br>
+<pre>
+.
+.
+.
+.
+.
+</pre>
+
+
+</body>
+</html>

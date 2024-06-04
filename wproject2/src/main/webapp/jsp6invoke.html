@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>redirect / forward 연습2 : jsp가 jsp 호출</title>
+</head>
+<body>
+<h2>redirect / forward 연습2 : jsp가 jsp 호출</h2>
+<a href="jsp6invoke.jsp?datak=john">jsp 파일 호출</a>
+<hr>
+참고 : WEB-INF 파일은 클라이언트에서 호출할 수 없다.<br>
+<a href="WEB-INF/hi.jsp">hi 문서 호출(구조적으로 접근 허용 불가)</a> <!-- redirect 불가 -->
+<br>
+WEB-INF 디렉토리는 redirect 방식으로 접근이 불가하다. 다음과 같이 서버를 통해 호출(forward) 가능하다.<br>
+<a href="hello.jsp">hi 문서 호출용</a>
+</body>
+</html>
