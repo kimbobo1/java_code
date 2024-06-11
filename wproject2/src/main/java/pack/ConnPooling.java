@@ -112,4 +112,97 @@ public class ConnPooling {
 		}
 		return b;
 	}
+	public SangpumDto updateData(String code) { //code는 수정대상
+		SangpumDto dto = null;
+		/*
+		try {
+			String sql = "select * from sangdata where code=?";
+			conn = ds.getConnection(); //연결 끝
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setString(1, code);
+			rs = pstmt.executeQuery(); //db에서 자료를 읽고 있을수도 없을수도 없으면 return
+			//한개만 넘길때
+			if(rs.next()) {
+				dto = new SangpumDto(); //자료가 있으면 sangpumdto에 담아서 리턴~
+				dto.setCode(rs.getString("code"));
+				dto.setSang(rs.getString("sang"));
+				dto.setSu(rs.getString("su"));
+				dto.setDan(rs.getString("dan"));
+			}
+			
+		} catch (Exception e) {
+			System.out.println("updataData err" + e);
+		}finally {
+			try {
+				
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+		return dto;
+		*/
+		String sql = "select * from sangdata where code=?";
+		try (Connection conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, code);
+			ResultSet rs = pstmt.executeQuery(); 
+			
+			if(rs.next()) {
+				dto = new SangpumDto(); //자료가 있으면 sangpumdto에 담아서 리턴~
+				dto.setCode(rs.getString("code"));
+				dto.setSang(rs.getString("sang"));
+				dto.setSu(rs.getString("su"));
+				dto.setDan(rs.getString("dan"));
+			}
+			
+		} catch (Exception e) {
+			System.out.println("updataData err" + e);
+		}
+		return dto;
+	}
+	public boolean updateDataOk(SangpumBean bean) {
+		boolean b = false;
+		String sql = "update sangdata set sang=?,su=?,dan=? where code=?";
+		try (Connection conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, bean.getSang());
+			pstmt.setString(2, bean.getSu());
+			pstmt.setString(3, bean.getDan());
+			pstmt.setString(4, bean.getCode());
+			
+			if(pstmt.executeUpdate() > 0) b = true;
+		
+		} catch (Exception e) {
+			System.out.println("updataData err" + e);
+		}
+		return b;
+	}
+	
+	public boolean deleteData(String code) {
+		boolean b = false;
+		String sql = "delete from sangdata where code=?";
+		try (Connection conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, code);
+			
+			if(pstmt.executeUpdate() > 0) b = true;
+		
+		} catch (Exception e) {
+			System.out.println("updataData err" + e);
+		}
+		return b;
+	}
 }
+
+
+
+

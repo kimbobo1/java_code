@@ -25,7 +25,7 @@ public class ServletBangList extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/test", "root", "123");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/test2", "root", "bohyun");
 			pstmt = conn.prepareStatement("select * from guest order by code desc");
 		} catch (Exception e) {
 			System.out.println("init err : " + e.getMessage());

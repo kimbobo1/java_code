@@ -15,8 +15,8 @@
 	try {
 		Class.forName("org.mariadb.jdbc.Driver"); 
 		
-		String url = "jdbc:mariadb://localhost:3306/test";
-		conn = DriverManager.getConnection(url, "root", "123");
+		String url = "jdbc:mariadb://localhost:3306/test2";
+		conn = DriverManager.getConnection(url, "root", "bohyun");
 		
 		pstmt = conn.prepareStatement("select * from sangdata");
 		rs = pstmt.executeQuery();

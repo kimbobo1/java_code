@@ -24,7 +24,7 @@ public class ServletBang extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/test", "root", "123");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/test2", "root", "bohyun");
 			pstmt = conn.prepareStatement("insert into guest(name,subject,content) values(?,?,?)");
 			
 		} catch (Exception e) {

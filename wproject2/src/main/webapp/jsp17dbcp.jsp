@@ -10,10 +10,20 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 function funcUp(){
-	alert("u");
+	let code = prompt("수정할 코드 입력","");
+	if(code !== "" && code !== null){
+		location.href="jsp17up.jsp?code=" + code; //get 방식으로 찾아가기
+	}
+	
 }
 function funcDel(){
-	alert("d");
+	let code = prompt("삭제할 코드 입력","");
+	if(code !== "" && code !== null){
+		if(confirm("정말 삭제?")){
+			
+		location.href="jsp17del.jsp?code=" + code; //get 방식으로 찾아가기
+		}
+	}
 }
 </script>
 </head>
