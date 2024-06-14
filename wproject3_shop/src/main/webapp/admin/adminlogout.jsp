@@ -8,12 +8,12 @@
 </head>
 <body>
 <%
-session.removeAttribute("adminKey");
+session.removeAttribute("adminOk");
 //session.invalidate();
 %>
 <script type="text/javascript">
 	alert("관리자 로그아웃 성공");
-	location.href="../index.jsp";
+	location.href="../guest/guest_index.jsp";
 </script>
 </body>
 </html>

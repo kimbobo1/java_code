@@ -9,7 +9,7 @@ request.setCharacterEncoding("utf-8");
 String id = request.getParameter("id");
 //out.print(id);
 
-MemberBean bean = memberMgr.getMember(id);
+MemberBean bean = memberMgr.getMember(id); 
 %>
 <!DOCTYPE html>
 <html>

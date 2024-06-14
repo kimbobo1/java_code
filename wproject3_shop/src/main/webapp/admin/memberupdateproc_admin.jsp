@@ -15,7 +15,7 @@
 </head>
 <body>
 <%
-boolean b = memberMgr.memberUpdate(bean, bean.getId());
+boolean b = memberMgr.memberUpdate(bean, bean.getId()); 
 
 if(b){
 %>
