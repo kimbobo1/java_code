@@ -17,8 +17,8 @@
 	try {
 		Class.forName("org.mariadb.jdbc.Driver"); 
 		
-		String url = "jdbc:mariadb://localhost:3306/test";
-		conn = DriverManager.getConnection(url, "root", "123");
+		String url = "jdbc:mariadb://localhost:3306/test2";
+		conn = DriverManager.getConnection(url, "root", "bohyun");
 		
 		String sql = "select jikwon_no,jikwon_name,jikwon_jik,jikwon_pay from jikwon";
 		if(gubun.equals("all")){
