@@ -10,9 +10,9 @@ boolean result = false;
 if(flag.equals("insert")){
 	result = productMgr.insertProduct(request);
 }else if(flag.equals("update")){
-	//result = productMgr.insertProduct(request);
-}if (flag.equals("delete")){
-	//result = productMgr.insertProduct(request);
+	result = productMgr.updatetProduct(request); 
+}if (flag.equals("delete")){ 
+	result = productMgr.deleteProduct(request.getParameter("no"));
 }else{
 	response.sendRedirect("productmanager.jsp");
 }

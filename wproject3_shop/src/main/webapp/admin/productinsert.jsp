@@ -14,7 +14,7 @@
 <table>
 <tr>
 		<td colspan="2">**상품 등록**</td>
-		<td><input type="text" name="name"></td>
+		
 	</tr>
 	<tr>
 		<td>상품명</td>

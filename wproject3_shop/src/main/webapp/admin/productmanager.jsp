@@ -49,7 +49,7 @@
 		}
 			
 		%>
-	</tr>
+	
 	<tr>
 		<td colspan="6">
 			[<a href="productinsert.jsp">상품 등록</a>]
