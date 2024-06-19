@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
     
  <jsp:useBean id="productMgr" class="pack.product.ProductMgr" />
+ 
  <%
  String no = request.getParameter("no");
  

@@ -1,3 +1,4 @@
+<%@page import="pack.product.ProductMgr"%>
 <%@page import="pack.product.ProductDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

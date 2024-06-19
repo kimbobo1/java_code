@@ -39,7 +39,7 @@
 </table>
 <%@ include file="guest_bottom.jsp" %>
 
-<form action="productdetail_g.jsp" name="detailFrm" method="post">
+<form action="productdetail_g.jsp" name="detailFrm">
 	<input type="hidden" name="no" />
 </form>
 </body>

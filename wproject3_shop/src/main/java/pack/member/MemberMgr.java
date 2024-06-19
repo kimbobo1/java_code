@@ -83,7 +83,7 @@ public class MemberMgr {
 		//System.out.println(mbean.getId() + " " + mbean.getName());
 		try {
 			conn=ds.getConnection();
-			String sql = "insert into member value(?,?,?,?,?,?,?,?)";
+			String sql = "insert into member value(?,?,?,?,?,?,?,?,)";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, mbean.getId());
 			pstmt.setString(2, mbean.getPasswd());
