@@ -13,6 +13,8 @@ import javax.sql.DataSource;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import pack.order.OrderBean;
+
 
 
 public class ProductMgr {
@@ -80,7 +82,7 @@ public class ProductMgr {
 			if(multi.getFilesystemName("image") == null) {
 				//상품 등록시 이미지를 선택하지 않은 경우
 				
-				pstmt.setString(5, multi.getParameter("ready.gif"));
+				pstmt.setString(5, "ready.gif");
 			}else {
 				pstmt.setString(5, multi.getFilesystemName("image"));
 			}
@@ -94,7 +96,7 @@ public class ProductMgr {
 				if(pstmt != null) pstmt.close(); 
 			
 				if(conn != null) conn.close();
-			} catch (Exception e2) { }
+			} catch (Exception e2) { } 
 		}
 		return b;
 	}
@@ -200,4 +202,26 @@ public class ProductMgr {
 		}
 		return b;
 	}
+	// 고객이 상품 주문 시 주문 수 만큼 재고량 빼기
+	public void reduceProduct(OrderBean bean) {
+		try {
+			conn = ds.getConnection();
+			String sql = "update shop_product set stock=(stock - ?) where no=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bean.getQuantity());
+			pstmt.setString(2, bean.getProduct_no());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close(); 
+			
+				if(conn != null) conn.close();
+			} catch (Exception e2) { }
+		}
+	}
+	
 }

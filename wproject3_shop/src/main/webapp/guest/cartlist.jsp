@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="pack.product.ProductDto"%>
 <%@page import="pack.product.ProductMgr"%>
 <%@page import="pack.order.OrderBean"%>
@@ -24,7 +25,8 @@
 	</tr>
 <%
 int totalPrice =0;
-Hashtable hCart = cartMgr.getCartlist();
+//Hashtable hCart = cartMgr.getCartlist();
+Hashtable<String, OrderBean> hCart = (Hashtable<String, OrderBean>)cartMgr.getCartlist();
 
 if(hCart.size() ==0){//카트에 아무것도 없는상태 
 %>
@@ -33,6 +35,7 @@ if(hCart.size() ==0){//카트에 아무것도 없는상태
 	<tr>
 <% 	
 }else{
+	/*
 	Enumeration enu = hCart.keys(); //Map 타입의 컬렉션 읽어 반복처리
 	while(enu.hasMoreElements()){   //있으면 트루 없으면 ㅂ펄스
 		OrderBean orderBean = (OrderBean)hCart.get(enu.nextElement());
@@ -41,6 +44,20 @@ if(hCart.size() ==0){//카트에 아무것도 없는상태
 		int quantity =Integer.parseInt(orderBean.getQuantity());
 		int subTotal = price * quantity; //소계
 		totalPrice += subTotal; //총계
+		*/
+		
+		
+		//Map.Entry를 이용하면 Map에 저장된 모든 key-value 쌍을 각각의 key-value를 갖고 있는 하나의 객체로 얻을 수 있다.
+		//Map.entrySet을 사용하면 Map.Entry객체가 나오는데 
+		//각각의 Map.Entry 객체는 Map의 한 항목을 나타내며, getKey()와 getValue() 메서드를 사용하여 키와 값에 접근할 수가 있다.
+	for(Map.Entry<String,OrderBean> entry : hCart.entrySet()){
+		OrderBean orderBean = entry.getValue();
+		ProductDto product = productMgr.getProduct(orderBean.getProduct_no());
+		int price =Integer.parseInt(product.getPrice());
+		int quantity =Integer.parseInt(orderBean.getQuantity());
+		int subTotal = price * quantity; //소계
+		totalPrice += subTotal; //총계
+	
 %>
 <form action="cartproc.jsp" method="get">
 	<input type="hidden" name="flag">
