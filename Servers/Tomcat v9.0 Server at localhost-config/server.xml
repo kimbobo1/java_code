@@ -60,7 +60,7 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-    <Connector connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+    <Connector connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443" />
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -160,7 +160,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="bobo123123" path="/bobo123123" reloadable="true" source="org.eclipse.jst.jee.server:bobo123123"/><Context docBase="wproject3_shop" path="/wproject3_shop" reloadable="true" source="org.eclipse.jst.jee.server:wproject3_shop"/></Host>
+      <Context docBase="wproject4" path="/wproject4" reloadable="true" source="org.eclipse.jst.jee.server:wproject4"/><Context docBase="bobo123123" path="/bobo123123" reloadable="true" source="org.eclipse.jst.jee.server:bobo123123"/><Context docBase="wproject3_shop" path="/wproject3_shop" reloadable="true" source="org.eclipse.jst.jee.server:wproject3_shop"/><Context docBase="wpro1" path="/wpro1" reloadable="true" source="org.eclipse.jst.jee.server:wpro1"/><Context docBase="SceneStealer-main" path="/SceneStealer-main" reloadable="true" source="org.eclipse.jst.jee.server:SceneStealer-main"/></Host>
     </Engine>
   </Service>
 </Server>
